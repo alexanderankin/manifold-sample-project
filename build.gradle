@@ -1,0 +1,70 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    // id 'systems.manifold.manifold-gradle-plugin' version '0.0.2-alpha'
+}
+
+group = 'systems.manifold'
+version = '0.1-SNAPSHOT'
+description = 'manifold-sample-project'
+
+// java.sourceCompatibility = JavaVersion.VERSION_17
+
+repositories {
+    maven { url 'https://repo1.maven.org/maven2' }
+}
+
+configurations {
+    implementation.extendsFrom annotationProcessor
+}
+
+def mfVersion = '2022.1.35'
+// manifold { manifoldVersion.set mfVersion }
+
+dependencies {
+    annotationProcessor 'systems.manifold:manifold-preprocessor:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-props:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-graphql:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-xml:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-yaml:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-csv:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-exceptions:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-image:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-properties:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-js:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-strings:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-templates:' + mfVersion
+    annotationProcessor 'systems.manifold:manifold-tuple:' + mfVersion
+
+    implementation 'systems.manifold:manifold-props-rt:' + mfVersion
+    implementation 'systems.manifold:manifold-graphql-rt:' + mfVersion
+    implementation 'systems.manifold:manifold-xml-rt:' + mfVersion
+    implementation 'systems.manifold:manifold-yaml-rt:' + mfVersion
+    implementation 'systems.manifold:manifold-csv-rt:' + mfVersion
+    implementation 'systems.manifold:manifold-js-rt:' + mfVersion
+    implementation 'systems.manifold:manifold-collections:' + mfVersion
+    implementation 'systems.manifold:manifold-science:' + mfVersion
+    implementation 'systems.manifold:manifold-templates-rt:' + mfVersion
+    implementation 'systems.manifold:manifold-tuple-rt:' + mfVersion
+
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.add '-Xplugin:Manifold'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
