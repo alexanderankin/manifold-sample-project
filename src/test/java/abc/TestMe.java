@@ -1,9 +1,10 @@
 package abc;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-public class TestMe extends TestCase {
-  public void testMe() {
+class TestMe {
+  @Test
+  void testMe() {
     abc.RunMe.main(null);
   }
 }
