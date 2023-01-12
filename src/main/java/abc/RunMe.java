@@ -74,7 +74,7 @@ public class RunMe {
     useJsonSchema();
     useYamlUsingJsonSchema();
     useGraphQL();
-    useCsv();
+    // useCsv();
     useCustomExtension();
     useProvidedExtension();
     useStructuralInterface();
@@ -355,7 +355,7 @@ public class RunMe {
   private static void useStructuralInterface() {
     out.println("\n\n### Use Structural Interfaces ###\n");
     // No casting necessary, Point indirectly implements Coordinate via extension (see MyPointExt).
-    Coordinate coord = new Point(4, 5);
+    Coordinate coord = (Coordinate) new Point(4, 5);
     out.println("x: " + coord.getX() + ", y: " + coord.getY());
 
     // Casting necessary, Rectangle does not nominally implement Coordinate
